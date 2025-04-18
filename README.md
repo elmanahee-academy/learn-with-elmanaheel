@@ -1,13 +1,12 @@
 # Learn with El Manaheel
 
-Welcome to the official GitHub repository of **El Manaheel Knowledge Channel**.
+This folder contains BEM exam review materials aligned with the Algerian middle school curriculum.
 
-This repository hosts educational content and interactive learning materials for middle school students.  
-Subjects currently available:
-
-- 📚 History
+Subjects included:
+- 📜 History
 - 🌍 Geography
 - 🏛️ Civic Education
 
-More subjects will be added over time.  
-Stay curious, stay learning!
+Each section includes summaries, key concepts, visual aids, and exercises based on official lessons to help students prepare effectively for the BEM exam.
+
+Stay focused and good luck with your studies!
