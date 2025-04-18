@@ -1,10 +1,3 @@
-# History Resources
+# History – BEM Quiz Review
 
-This folder contains educational content related to history for middle school students.
-
-Here you'll find:
-- Interactive quizzes
-- Summaries of key historical events
-- Practice worksheets and exercises
-
-Stay tuned as we expand with more materials.
+This folder contains multiple-choice quizzes and other review tools to help students revise History for the BEM exam. All materials follow the official Algerian middle school curriculum to ensure alignment with national standards.
