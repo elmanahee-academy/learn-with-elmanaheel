@@ -1,10 +1,4 @@
-# Geography Resources
+# Geography – BEM Quiz Review
 
-This folder includes geography lessons and interactive activities to help students explore the world.
+This folder offers geography quizzes tailored to the Algerian BEM curriculum. It helps students practice key concepts and prepare effectively for the national exam.
 
-Content may include:
-- Map-based exercises
-- Country and capital quizzes
-- Physical and human geography summaries
-
-Perfect for review and classroom support.
