@@ -1,10 +1,3 @@
-# Civic Education Resources
+# Civic Education – BEM Quiz Review
 
-In this folder, you'll find content focused on civic education for young learners.
-
-Topics may include:
-- Rights and responsibilities of citizens
-- The role of government and law
-- Conflict resolution and mediation
-
-Designed to help students understand their place in society.
+Here you'll find quiz activities designed to support the BEM revision in Civic Education. All resources are structured according to the official Algerian syllabus.
