@@ -1,1 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اختبار الاجتماعيات - رابعة متوسط</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background: #f4f4f4;
+      direction: rtl;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px;
+    }
+    .quiz-container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .answers label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #555;
+      border-radius: 4px;
+      margin-left: 10px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    input[type="checkbox"]:checked {
+      background-color: #28a745;
+    }
+    .correct-answer {
+      background-color: yellow;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .score {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>اختبار شامل في الاجتماعيات - سنة رابعة متوسط</h1>
+<div class="quiz-container" id="quiz"></div>
+<div style="text-align: center;">
+  <button onclick="submitQuiz()">اعرض النقاط والإجابات الصحيحة</button>
+  <button onclick="resetQuiz()">إعادة المحاولة</button>
+</div>
+<div class="score" id="result"></div>
+
+<script>
+const questions = [
+  {
+    question: "ما هو مفهوم الخلاف الاجتماعي؟",
+    answers: ["هو التضاد واختلاف المصالح", "هو التوافق الكامل", "هو تعاون دائم", "هو وحدة في الرأي"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هو الصلح؟",
+    answers: ["بديل سلمي لحل النزاعات", "قرار إداري", "قانون جنائي", "جلسة برلمانية"],
+    correctIndex: 0
+  },
+  {
+    question: "كم نوع للصلح؟",
+    answers: ["صلح قضائي وصلح عرفي", "صلح مباشر فقط", "صلح سياسي فقط", "صلح تجاري فقط"],
+    correctIndex: 0
+  },
+  {
+    question: "من شروط الصلح؟",
+    answers: ["وجود خلاف ووسيط محايد", "وجود محكمة فقط", "حضور الشرطة", "عقد رسمي فقط"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هي الوساطة؟",
+    answers: ["إيجاد حل ودي للنزاع", "تنفيذ العقوبة", "إجراءات الانتخابات", "فرض العقوبات"],
+    correctIndex: 0
+  },
+  {
+    question: "أهمية الصلح والوساطة؟",
+    answers: ["الحفاظ على الروابط الاجتماعية", "نشر العنف", "إضعاف القضاء", "إطالة الخلاف"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هو مفهوم التقاضي؟",
+    answers: ["حق المواطن في رفع التظلم", "التحقيق الأمني", "تنظيم إداري", "حق الانتخاب"],
+    correctIndex: 0
+  },
+  {
+    question: "من هي الجهة القضائية العليا في الجزائر؟",
+    answers: ["المحكمة العليا", "البلدية", "مجلس الأمة", "الدائرة"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هي المحكمة المختصة بالنزاعات الإدارية؟",
+    answers: ["المحكمة الإدارية", "المحكمة العسكرية", "محكمة الجنايات", "محكمة الأحوال الشخصية"],
+    correctIndex: 0
+  },
+  {
+    question: "ما دور القضاء في المجتمع؟",
+    answers: ["ضمان الاستقرار والعدالة", "نشر الفوضى", "تعطيل القوانين", "زيادة الخلافات"],
+    correctIndex: 0
+  },
+  {
+    question: "متى تلجأ المحكمة إلى الصلح القضائي؟",
+    answers: ["بعد فشل الوساطة العرفية", "قبل تقديم الدعوى", "بعد صدور الحكم", "قبل وقوع النزاع"],
+    correctIndex: 0
+  },
+  {
+    question: "ما المقصود بالمحاكمة؟",
+    answers: ["إجراء قانوني لإثبات البراءة أو الإدانة", "جلسة إدارية", "تقرير أمني", "نقاش سياسي"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هو حق الدفاع؟",
+    answers: ["توكيل محامٍ أو الدفاع شخصياً", "رفض الحضور", "السكوت فقط", "الانسحاب من المحاكمة"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هي حقوق الإنسان؟",
+    answers: ["حقوق طبيعية ومكتسبة للفرد", "قوانين عسكرية", "حقوق الموظفين فقط", "دستور خاص بالأطفال"],
+    correctIndex: 0
+  },
+  {
+    question: "متى صدر الإعلان العالمي لحقوق الإنسان؟",
+    answers: ["10 ديسمبر 1948", "5 يوليو 1962", "20 أوت 1956", "1 نوفمبر 1954"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هو حق الطفل في الرعاية الصحية؟",
+    answers: ["توفير العلاج والمتابعة", "العمل في سن مبكرة", "التجنيد الإجباري", "منع التعليم"],
+    correctIndex: 0
+  },
+  {
+    question: "من بين حقوق المرأة؟",
+    answers: ["المساواة مع الرجل أمام القانون", "الحرمان من التعليم", "عدم الترشح للوظائف", "منع التنقل"],
+    correctIndex: 0
+  },
+  {
+    question: "ما الهدف من الاتفاقيات الدولية لحقوق الإنسان؟",
+    answers: ["حماية كرامة الإنسان", "نشر النزاعات", "تقوية الحكومات", "منع الحرية"],
+    correctIndex: 0
+  },
+  {
+    question: "ما هو دور المجتمع المدني في حقوق الإنسان؟",
+    answers: ["التوعية والدفاع عنها", "رفضها", "السكوت عنها", "نشر الإشاعات"],
+    correctIndex: 0
+  },
+  {
+    question: "من هو القائد الذي قال: 'نحن مع فلسطين ظالمة أو مظلومة'؟",
+    answers: ["أحمد بن بلة", "مصالي الحاج", "هواري بومدين", "عبد العزيز بوتفليقة"],
+    correctIndex: 2
+  }
+]
+
+function buildQuiz() {
+  const quizDiv = document.getElementById('quiz');
+  quizDiv.innerHTML = '';
+  questions.forEach((q, index) => {
+    const answersHTML = q.answers.map((ans, i) =>
+      `<label><input type="checkbox" name="q${index}" value="${i}"> ${ans}</label>`
+    ).join('');
+    quizDiv.innerHTML += `
+      <div class="question">
+        <p><strong>${q.question}</strong></p>
+        <div class="answers">${answersHTML}</div>
+      </div>
+    `;
+  });
+}
+
+function submitQuiz() {
+  let score = 0;
+  let attempted = 0;
+  const resultDiv = document.getElementById('result');
+  document.querySelectorAll('.question').forEach((qEl, idx) => {
+    const checked = qEl.querySelector('input[type="checkbox"]:checked');
+    if (checked) {
+      attempted++;
+      const userAnswer = parseInt(checked.value);
+      if (userAnswer === questions[idx].correctIndex) {
+        score++;
+      } else {
+        const correctBox = qEl.querySelectorAll('input[type="checkbox"]')[questions[idx].correctIndex];
+        correctBox.parentElement.innerHTML += ` <span class="correct-answer">الإجابة الصحيحة</span>`;
+      }
+    }
+  });
+  resultDiv.innerHTML = `✔️ نتيجتك: ${score} من ${attempted} سؤال تمت الإجابة عليه.`;
+}
+
+function resetQuiz() {
+  buildQuiz();
+  document.getElementById('result').innerHTML = '';
+}
+
+buildQuiz();
+</script>
+
+</body>
+</html>
 
