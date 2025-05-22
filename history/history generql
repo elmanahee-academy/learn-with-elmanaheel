@@ -1,1 +1,2719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL MANAHEEL ACADEMY - HISTORY REVISION NOTEBOOK</title>
+    <style>
+        :root {
+            --primary-blue: #2980b9;
+            --secondary-blue: #3498db;
+            --accent-red: #e74c3c;
+            --light-gray: #ecf0f1;
+            --dark-gray: #2c3e50;
+            --gold: #f1c40f;
+            --green: #2ecc71;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .notebook-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-bottom: 5px solid var(--gold);
+        }
+        
+        .academy-title {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .academy-subtitle {
+            font-size: 1.4rem;
+            margin-top: 10px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        
+        .course-title {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        
+        .main-buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+        
+        .main-btn {
+            position: relative;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 140px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .main-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-courses {
+            background-color: var(--accent-red);
+            color: white;
+            order: 2;
+            flex-grow: 1;
+            max-width: 200px;
+        }
+        
+        .btn-prev {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            order: 1;
+        }
+        
+        .btn-next {
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            order: 3;
+        }
+        
+        .content-tabs {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin: 0 auto 20px;
+            border-radius: 50px;
+            max-width: 600px;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            border: none;
+            background: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--dark-gray);
+            font-size: 1rem;
+            border-radius: 50px;
+            margin: 0 5px;
+        }
+        
+        .tab-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+        }
+        
+        .content-container {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .lessons-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .lesson-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 5px solid var(--primary-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .lesson-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(41,128,185,0.1), rgba(41,128,185,0.05));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .lesson-card:hover::after {
+            opacity: 1;
+        }
+        
+        .lesson-title {
+            color: var(--primary-blue);
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .lesson-desc {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-top: 20px;
+            border-top: 5px solid var(--primary-blue);
+            animation: fadeIn 0.5s;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            color: var(--primary-blue);
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            font-size: 1.5rem;
+        }
+        
+        .welcome-message {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: center;
+            border-top: 5px solid var(--green);
+            animation: fadeIn 0.8s;
+        }
+        
+        .welcome-title {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .welcome-arabic {
+            direction: rtl;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .start-btn {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(46,204,113,0.3);
+        }
+        
+        .start-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46,204,113,0.4);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="notebook-header">
+        <h1 class="academy-title">EL MANAHEEL ACADEMY</h1>
+        <p class="academy-subtitle">HISTORY REVISION NOTEBOOK</p>
+        <div class="course-title">مادة التاريخ - السنة الرابعة متوسط</div>
+    </div>
+    
+    <!-- Message de bienvenue -->
+    <div id="welcomeMessage" class="welcome-message">
+        <h2 class="welcome-title">Welcome to Your History Revision Notebook!</h2>
+        <p class="welcome-text">This interactive notebook will help you master historical concepts with ease.<br>
+        Access lessons, practice exercises, and take personal notes all in one place.</p>
+        
+        <div class="welcome-arabic">
+            مرحباً بك في دفتر مراجعة التاريخ التفاعلي!<br>
+            هذا الدفتر سيساعدك على إتقان المفاهيم التاريخية بسهولة.<br>
+            يمكنك الوصول إلى الدروس، تمارين التطبيق، وملاحظاتك الشخصية في مكان واحد.
+        </div>
+        
+        <button class="start-btn" id="startBtn">ابدأ التعلم</button>
+    </div>
+    
+    <!-- Interface principale (cachée au départ) -->
+    <div id="mainInterface" class="hidden">
+        <div class="main-buttons-container">
+            <button class="main-btn btn-prev" id="prevBtn">السابق</button>
+            <button class="main-btn btn-courses" id="coursesBtn">الدروس</button>
+            <button class="main-btn btn-next" id="nextBtn">التالي</button>
+        </div>
+        
+        <div class="content-tabs">
+            <button class="tab-btn active" id="explanationTab">الشرح</button>
+            <button class="tab-btn" id="testTab">الاختبار</button>
+            <button class="tab-btn" id="notesTab">الملاحظات</button>
+        </div>
+        
+        <div class="content-container">
+            <!-- Liste des cours -->
+            <div id="lessonsListSection">
+                <h2 class="section-title">قائمة الدروس</h2>
+                <div class="lessons-list" id="lessonsList">
+                    <!-- Les cours seront ajoutés dynamiquement ici -->
+                </div>
+            </div>
+            
+            <!-- Section Explication -->
+            <div id="explanationSection" class="content-section">
+                <h2 class="section-title" id="explanationTitle"></h2>
+                <div id="explanationContent"></div>
+            </div>
+            
+            <!-- Section Test pratique -->
+            <div id="testSection" class="content-section">
+                <h2 class="section-title" id="testTitle"></h2>
+                <div id="testContent"></div>
+            </div>
+            
+            <!-- Section Notes -->
+            <div id="notesSection" class="content-section">
+                <h2 class="section-title" id="notesTitle"></h2>
+                <div id="notesContent"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Données des cours
+        const coursesData = [
+        {
+    "id": "historical_document_course",
+    "title": "📜 الوثيقة التاريخية | منهجية التحليل",
+    "description": "دليل متكامل لدراسة الوثائق التاريخية مع تطبيق عملي على رسالة بولينياك",
+    "explanation": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- Définition -->
+        <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #3498db; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">1</span>
+                تعريف الوثيقة التاريخية
+            </h3>
+            <p style="line-height: 1.8; font-size: 16px;">كل مستند معاصر للحدث المدروس، يعتمد عليه المؤرخون لفهم الماضي بدقة.<br>تمثل شهادة حية موثقة تختلف عن الروايات الشفوية.</p>
+        </div>
 
+        <!-- Types -->
+        <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+            <div style="flex: 1; background: #e3f2fd; padding: 20px; border-radius: 12px; border-top: 5px solid #2196f3; box-shadow: 0 3px 10px rgba(0,0,0,0.08);">
+                <h4 style="color: #1565c0; margin-top: 0; display: flex; align-items: center;">
+                    <span style="background: #2196f3; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">✍️</span>
+                    الوثائق المكتوبة
+                </h4>
+                <ul style="padding-right: 20px;">
+                    <li style="margin-bottom: 8px; position: relative; padding-right: 15px;">الرسائل</li>
+                    <li style="margin-bottom: 8px; position: relative; padding-right: 15px;">المعاهدات</li>
+                    <li style="position: relative; padding-right: 15px;">البيانات الرسمية</li>
+                </ul>
+            </div>
+
+            <div style="flex: 1; background: #fff8e1; padding: 20px; border-radius: 12px; border-top: 5px solid #ffb300; box-shadow: 0 3px 10px rgba(0,0,0,0.08);">
+                <h4 style="color: #e65100; margin-top: 0; display: flex; align-items: center;">
+                    <span style="background: #ffb300; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🖼️</span>
+                    الوثائق الصامتة
+                </h4>
+                <ul style="padding-right: 20px;">
+                    <li style="margin-bottom: 8px;">النقود والآثار</li>
+                    <li style="margin-bottom: 8px;">الأسلحة التقليدية</li>
+                    <li>المخطوطات القديمة</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Méthodologie -->
+        <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #43a047;">
+            <h3 style="color: #2e7d32; margin-top: 0; border-bottom: 2px solid #43a047; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #43a047; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">2</span>
+                منهجية التحليل
+            </h3>
+            
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00796b; margin-top: 0;">تقديم الوثيقة</h4>
+                    <p>✓ تحديد الصاحب والنوع<br>✓ دراسة المصدر والتاريخ<br>✓ تحليل ظروف الصدور</p>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00796b; margin-top: 0;">تحليل المحتوى</h4>
+                    <p>✓ استخراج الفكرة العامة<br>✓ تحديد الأفكار الجزئية<br>✓ دراسة المصطلحات الدالة</p>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00796b; margin-top: 0;">التقييم والنقد</h4>
+                    <p>✓ تحليل خلفية الكاتب<br>✓ دراسة السياق التاريخي<br>✓ المقارنة مع مصادر أخرى</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "test": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- Étude de cas -->
+        <div style="background: #fff3e0; padding: 5px 25px 25px 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #ffe0b2;">
+            <h3 style="color: #e65100; margin-top: 15px; display: flex; align-items: center; justify-content: center;">
+                <span style="background: #fb8c00; color: white; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center;">
+                    <span style="margin-left: 8px;">✉️</span>
+                    دراسة وثيقة: رسالة بولينياك 1830
+                </span>
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="color: #d84315; margin-top: 0; border-bottom: 1px dashed #ffab91; padding-bottom: 8px;">
+                    <span style="background: #ffab91; color: #bf360c; padding: 2px 8px; border-radius: 4px; font-size: 14px;">الخطوة 1</span>
+                    التقديم
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">الصاحب</div>
+                        <div style="font-weight: bold;">جول2 بولينياك</div>
+                    </div>
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">النوع</div>
+                        <div style="font-weight: bold;">رسالة دبلوماسية</div>
+                    </div>
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">التاريخ</div>
+                        <div style="font-weight: bold;">12 ماي 1830</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="color: #d84315; margin-top: 0; border-bottom: 1px dashed #ffab91; padding-bottom: 8px;">
+                    <span style="background: #ffab91; color: #bf360c; padding: 2px 8px; border-radius: 4px; font-size: 14px;">الخطوة 2</span>
+                    التحليل
+                </h4>
+                <div style="margin-top: 15px;">
+                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                        <div style="display: flex; align-items: baseline;">
+                            <span style="background: #e0e0e0; color: #616161; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0;">1</span>
+                            <div>
+                                <div style="font-weight: bold; color: #424242;">الفكرة العامة</div>
+                                <div>تبرير الحملة الفرنسية على الجزائر</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                        <div style="display: flex; align-items: baseline;">
+                            <span style="background: #e0e0e0; color: #616161; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0;">2</span>
+                            <div>
+                                <div style="font-weight: bold; color: #424242;"> في الرسالة:المصطلحات الدالة</div>
+                                <div>"الشرف القومي"، "الكرامة الفرنسية"، "التعويض"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="color: #d84315; margin-top: 0; border-bottom: 1px dashed #ffab91; padding-bottom: 8px;">
+                    <span style="background: #ffab91; color: #bf360c; padding: 2px 8px; border-radius: 4px; font-size: 14px;">الخطوة 3</span>
+                    التقييم
+                </h4>
+                <div style="margin-top: 15px;">
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 4px solid #2e7d32;">
+                        <div style="font-weight: bold; color: #1b5e20;">✓ الخلفية التاريخية</div>
+                        <div style="margin-top: 8px;">أزمة سياسية في فرنسا + رغبة في التوسع الاستعماري</div>
+                    </div>
+                    <div style="background: #fffde7; padding: 15px; border-radius: 8px; margin-top: 12px; border-left: 4px solid #f9a825;">
+                        <div style="font-weight: bold; color: #ff8f00;">✓ التناقضات</div>
+                        <div style="margin-top: 8px;">السبب المعلن (حادثة المروحة) vs الهدف الحقيقي (السيطرة على الثروات)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exercice -->
+        <div style="background: #e3f2fd; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #bbdefb;">
+            <h3 style="color: #1565c0; margin-top: 0; display: flex; align-items: center; justify-content: center;">
+                <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center;">
+                    <span style="margin-left: 8px;">🖋️</span>
+                    تمرين تطبيقي
+                </span>
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                <p style="font-weight: bold; color: #0d47a1;">قارن بين رسالة بولينياك وبيان أول نوفمبر من حيث:</p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background: #bbdefb;">
+                        <th style="padding: 12px; text-align: right;">المعيار</th>
+                        <th style="padding: 12px; text-align: right;">رسالة بولينياك</th>
+                        <th style="padding: 12px; text-align: right;">بيان أول نوفمبر</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e3f2fd;">
+                        <td style="padding: 12px; font-weight: bold;">الهدف</td>
+                        <td style="padding: 12px;">تبرير الاستعمار</td>
+                        <td style="padding: 12px;">تحرير الوطن</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e3f2fd;">
+                        <td style="padding: 12px; font-weight: bold;">الخطاب</td>
+                        <td style="padding: 12px;">دبلوماسي تبريري</td>
+                        <td style="padding: 12px;">ثوري تحريضي</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    `,
+    "notes": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f3e5f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #e1bee7;">
+            <h3 style="color: #6a1b9a; margin-top: 0; display: flex; align-items: center;">
+                <span style="background: #9c27b0; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">!</span>
+                ملاحظات أساسية
+            </h3>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #7b1fa2; margin-top: 0; border-bottom: 1px dashed #ce93d8; padding-bottom: 8px;">تحذيرات</h4>
+                    <ul style="padding-right: 20px; list-style-type: none;">
+                        <li style="margin-bottom: 10px; position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            الوثائق الرسمية قد تخفي حقائق
+                        </li>
+                        <li style="margin-bottom: 10px; position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            خطر التحليل خارج السياق
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #7b1fa2; margin-top: 0; border-bottom: 1px dashed #ce93d8; padding-bottom: 8px;">نصائح</h4>
+                    <ul style="padding-right: 20px; list-style-type: none;">
+                        <li style="margin-bottom: 10px; position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            ابحث دائماً عن الوثائق المضادة
+                        </li>
+                        <li style="position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            انتبه لتطور المصطلحات عبر الزمن
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #ede7f6; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #5e35b1;">
+                <div style="display: flex; align-items: center;">
+                    <span style="background: #7e57c2; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">💡</span>
+                    <div>
+                        <div style="font-weight: bold; color: #4527a0;">مفتاح التحليل الناجح</div>
+                        <div style="margin-top: 5px;">الربط الدائم بين: النص ↔ السياق ↔ النتائج</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+            },
+            {
+    "id": "november_first_proclamation_course",
+    "title": "📜 بيان أول نوفمبر 1954 | دراسة وثيقة تاريخية",
+    "description": "تحليل شامل لبيان أول نوفمبر كوثيقة تأسيسية للثورة الجزائرية مع منهجية تطبيقية",
+    "explanation": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- تعريف الوثيقة -->
+        <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #3498db; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">1</span>
+                تعريف البيان التاريخي
+            </h3>
+            <p style="line-height: 1.8; font-size: 16px;">وثيقة سياسية-ثورية أصدرتها <strong>جبهة التحرير الوطني</strong> في 23 أكتوبر 1954 (نُشرت ليلة 1 نوفمبر)، تُعد الإعلان الرسمي لانطلاق الثورة الجزائرية ضد الاستعمار الفرنسي. تميزت بـ:</p>
+            <ul style="padding-right: 20px; list-style-type: none;">
+                <li style="margin-bottom: 8px; position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    طابعها التأسيسي للكفاح المسلح
+                </li>
+                <li style="margin-bottom: 8px; position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    تحديدها لأهداف الثورة الداخلية والخارجية
+                </li>
+                <li style="position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    اعتمادها على خطاب جماهيري مؤثر
+                </li>
+            </ul>
+        </div>
+
+        <!-- الخصائص -->
+        <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+            <div style="flex: 1; background: #e3f2fd; padding: 20px; border-radius: 12px; border-top: 5px solid #2196f3; box-shadow: 0 3px 10px rgba(0,0,0,0.08);">
+                <h4 style="color: #1565c0; margin-top: 0; display: flex; align-items: center;">
+                    <span style="background: #2196f3; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🎯</span>
+                    الأبعاد الاستراتيجية
+                </h4>
+                <ul style="padding-right: 20px;">
+                    <li style="margin-bottom: 8px; position: relative; padding-right: 15px;">الجمع بين النضال المسلح والسياسي</li>
+                    <li style="margin-bottom: 8px; position: relative; padding-right: 15px;">التخطيط للتفاوض من موقع القوة</li>
+                    <li style="position: relative; padding-right: 15px;">توجيه رسائل للرأي العام الدولي</li>
+                </ul>
+            </div>
+
+            <div style="flex: 1; background: #fff8e1; padding: 20px; border-radius: 12px; border-top: 5px solid #ffb300; box-shadow: 0 3px 10px rgba(0,0,0,0.08);">
+                <h4 style="color: #e65100; margin-top: 0; display: flex; align-items: center;">
+                    <span style="background: #ffb300; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">✍️</span>
+                    الخصائص اللغوية
+                </h4>
+                <ul style="padding-right: 20px;">
+                    <li style="margin-bottom: 8px;">لغة بسيطة لكنها قوية</li>
+                    <li style="margin-bottom: 8px;">استخدام مصطلحات ثورية (الكفاح، السيادة...)</li>
+                    <li>توازن بين النداء العاطفي والتحليل السياسي</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- منهجية التحليل -->
+        <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #43a047;">
+            <h3 style="color: #2e7d32; margin-top: 0; border-bottom: 2px solid #43a047; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #43a047; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">2</span>
+                منهجية دراسة البيان
+            </h3>
+            
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00796b; margin-top: 0;">السياق التاريخي</h4>
+                    <p>✓ فشل المساعي السلمية (مجازر 8 ماي 1945)<br>✓ تبلور الوعي الوطني<br>✓ التخطيط السري للثورة</p>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00796b; margin-top: 0;">الهيكل التنظيمي</h4>
+                    <p>✓ تقسيم الأهداف لداخلية/خارجية<br>✓ توضيح الوسائل (مسلحة/سياسية)<br>✓ شروط التفاوض</p>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00796b; margin-top: 0;">الأثر التاريخي</h4>
+                    <p>✓ توحيد الصف الجزائري<br>✓ كسب التعاطف الدولي<br>✓ تأسيس مرجعية سياسية للثورة</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "test": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- دراسة الوثيقة -->
+        <div style="background: #fff3e0; padding: 5px 25px 25px 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #ffe0b2;">
+            <h3 style="color: #e65100; margin-top: 15px; display: flex; align-items: center; justify-content: center;">
+                <span style="background: #fb8c00; color: white; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center;">
+                    <span style="margin-left: 8px;">📜</span>
+                    تحليل بيان أول نوفمبر
+                </span>
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="color: #d84315; margin-top: 0; border-bottom: 1px dashed #ffab91; padding-bottom: 8px;">
+                    <span style="background: #ffab91; color: #bf360c; padding: 2px 8px; border-radius: 4px; font-size: 14px;">الخطوة 1</span>
+                    البيانات الأساسية
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">المصدر</div>
+                        <div style="font-weight: bold;">جبهة التحرير الوطني</div>
+                    </div>
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">التاريخ</div>
+                        <div style="font-weight: bold;">1 نوفمبر 1954</div>
+                    </div>
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">المكان</div>
+                        <div style="font-weight: bold;">الجزائر العاصمة</div>
+                    </div>
+                    <div style="flex: 1; min-width: 120px; background: #fbe9e7; padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 12px; color: #bf360c;">النوع</div>
+                        <div style="font-weight: bold;">بيان ثوري تأسيسي</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="color: #d84315; margin-top: 0; border-bottom: 1px dashed #ffab91; padding-bottom: 8px;">
+                    <span style="background: #ffab91; color: #bf360c; padding: 2px 8px; border-radius: 4px; font-size: 14px;">الخطوة 2</span>
+                    المضامين الرئيسية
+                </h4>
+                <div style="margin-top: 15px;">
+                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                        <div style="display: flex; align-items: baseline;">
+                            <span style="background: #e0e0e0; color: #616161; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0;">1</span>
+                            <div>
+                                <div style="font-weight: bold; color: #424242;">الأهداف الداخلية</div>
+                                <div>الاستقلال - بناء دولة ديمقراطية - ضمان الحريات</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                        <div style="display: flex; align-items: baseline;">
+                            <span style="background: #e0e0e0; color: #616161; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0;">2</span>
+                            <div>
+                                <div style="font-weight: bold; color: #424242;">الوسائل</div>
+                                <div>"الكفاح المسلح" + "التعبئة الشعبية" + "النضال السياسي"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h4 style="color: #d84315; margin-top: 0; border-bottom: 1px dashed #ffab91; padding-bottom: 8px;">
+                    <span style="background: #ffab91; color: #bf360c; padding: 2px 8px; border-radius: 4px; font-size: 14px;">الخطوة 3</span>
+                    التحليل النقدي
+                </h4>
+                <div style="margin-top: 15px;">
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 4px solid #2e7d32;">
+                        <div style="font-weight: bold; color: #1b5e20;">✓ نقاط القوة</div>
+                        <div style="margin-top: 8px;">وضوح الرؤية - شمولية الأهداف - تنظيم الوسائل</div>
+                    </div>
+                    <div style="background: #fffde7; padding: 15px; border-radius: 8px; margin-top: 12px; border-left: 4px solid #f9a825;">
+                        <div style="font-weight: bold; color: #ff8f00;">✓ الأبعاد الاستراتيجية</div>
+                        <div style="margin-top: 8px;">الجمع بين العسكري والسياسي - التمهيد للتفاوض المستقبلي</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- تمرين -->
+        <div style="background: #e3f2fd; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #bbdefb;">
+            <h3 style="color: #1565c0; margin-top: 0; display: flex; align-items: center; justify-content: center;">
+                <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center;">
+                    <span style="margin-left: 8px;">🖋️</span>
+                    تمرين تطبيقي
+                </span>
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                <p style="font-weight: bold; color: #0d47a1;">قارن بين بيان أول نوفمبر ورسالة بولينياك من حيث:</p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background: #bbdefb;">
+                        <th style="padding: 12px; text-align: right;">المعيار</th>
+                        <th style="padding: 12px; text-align: right;">بيان أول نوفمبر</th>
+                        <th style="padding: 12px; text-align: right;">رسالة بولينياك</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e3f2fd;">
+                        <td style="padding: 12px; font-weight: bold;">الغاية</td>
+                        <td style="padding: 12px;">تحرير وطني</td>
+                        <td style="padding: 12px;">تبرير استعماري</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e3f2fd;">
+                        <td style="padding: 12px; font-weight: bold;">الخطاب</td>
+                        <td style="padding: 12px;">ثوري جماهيري</td>
+                        <td style="padding: 12px;">دبلوماسي نخبوي</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; font-weight: bold;">النتائج</td>
+                        <td style="padding: 12px;">توحيد الشعب الجزائري</td>
+                        <td style="padding: 12px;">تمهيد للاحتلال الفرنسي</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    `,
+    "notes": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f3e5f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #e1bee7;">
+            <h3 style="color: #6a1b9a; margin-top: 0; display: flex; align-items: center;">
+                <span style="background: #9c27b0; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">!</span>
+                ملاحظات منهجية
+            </h3>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #7b1fa2; margin-top: 0; border-bottom: 1px dashed #ce93d8; padding-bottom: 8px;">تحذيرات</h4>
+                    <ul style="padding-right: 20px; list-style-type: none;">
+                        <li style="margin-bottom: 10px; position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            عدم فصل البيان عن سياقه (فشل المساعي السلمية)
+                        </li>
+                        <li style="margin-bottom: 10px; position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            تجنب القراءة الحرفية للخطاب الثوري
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #7b1fa2; margin-top: 0; border-bottom: 1px dashed #ce93d8; padding-bottom: 8px;">نصائح</h4>
+                    <ul style="padding-right: 20px; list-style-type: none;">
+                        <li style="margin-bottom: 10px; position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            ربط الأهداف المعلنة بالتحقق الفعلي لاحقاً
+                        </li>
+                        <li style="position: relative; padding-right: 25px;">
+                            <span style="position: absolute; right: 0; top: 2px; color: #ab47bc;">◼</span>
+                            مقارنة البيان بالوثائق الاستعمارية المعاصرة
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #ede7f6; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #5e35b1;">
+                <div style="display: flex; align-items: center;">
+                    <span style="background: #7e57c2; color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">💡</span>
+                    <div>
+                        <div style="font-weight: bold; color: #4527a0;">مفتاح التحليل</div>
+                        <div style="margin-top: 5px;">التركيز على ثنائية: <strong>الوضوح التنظيمي</strong> في الأهداف ↔ <strong>المرونة الاستراتيجية</strong> في الوسائل</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+},
+{
+    "id": "french_colonization_stages_policies_full",
+    "title": "🧠 مراحل الاحتلال الفرنسي للجزائر والسياسة الاستعمارية",
+    "description": "تحليل شامل لمراحل الاحتلال الفرنسي وسياساته الاستعمارية في الجزائر",
+    "explanation": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- العنوان الرئيسي -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #2c3e50;">مراحل الاحتلال الفرنسي للجزائر والسياسة الاستعمارية</h1>
+            <h2 style="color: #3498db;">📘 1. الدرس الكامل والمفصل</h2>
+        </div>
+
+        <!-- التمهيد التاريخي -->
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #6c757d;">
+            <h3 style="color: #495057; margin-top: 0; border-bottom: 2px solid #adb5bd; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #6c757d; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🕰️</span>
+                تمهيد تاريخي
+            </h3>
+            <p style="line-height: 1.8; font-size: 16px;">حادثة المروحة سنة 1827 لم تكن سوى ذريعة استعمارية استغلتها فرنسا لتبرير مشروعها الحقيقي المتمثل في:</p>
+            <ul style="padding-right: 20px; list-style-type: none;">
+                <li style="margin-bottom: 8px; position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    السيطرة على الجزائر ونهب ثرواتها
+                </li>
+                <li style="margin-bottom: 8px; position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    قطع الطريق أمام النفوذ العثماني في شمال إفريقيا
+                </li>
+            </ul>
+            <p style="line-height: 1.8; font-size: 16px;">من 1827 إلى 1830، بدأت فرنسا تنفيذ خطة استعمارية ممنهجة بدأت بالحصار العسكري وانتهت بفرض سياسات استعمارية شاملة.</p>
+        </div>
+
+        <!-- مراحل الاحتلال -->
+        <div style="background: #e9ecef; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #212529; margin-top: 0; border-bottom: 2px solid #495057; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #495057; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">📌</span>
+                المراحل الأساسية للاحتلال الفرنسي
+            </h3>
+
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #2980b9;">
+                    <h4 style="color: #2980b9; margin-top: 0;">🔹 المرحلة 1: الحصار البحري (1827 – 1830)</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>فرضته فرنسا على السواحل الجزائرية</li>
+                        <li>الهدف: إضعاف البحرية الجزائرية ومنع الدعم العثماني</li>
+                        <li>دام 3 سنوات وكان تمهيدًا مباشراً للغزو</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #e74c3c;">
+                    <h4 style="color: #e74c3c; margin-top: 0;">🔹 المرحلة 2: الاحتلال العسكري وسقوط العاصمة</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>نزلت القوات الفرنسية يوم 14 جوان 1830 في ميناء سيدي فرج</li>
+                        <li>خاضت معركة سطاوالي في 19 جوان 1830 وفازت بأول انتصار</li>
+                        <li>في 5 جويلية 1830، تم توقيع معاهدة الاستسلام من طرف الداي حسين</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #f39c12;">
+                    <h4 style="color: #f39c12; margin-top: 0;">🔹 المرحلة 3: التوسع في الداخل (1830 – 1911)</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>رغم سقوط العاصمة، لم تتوقف المقاومة</li>
+                        <li>واجهت فرنسا صعوبة في التوسع بسبب شدة المقاومة الشعبية</li>
+                        <li>ارتكبت مجازر رهيبة خاصة في:
+                            <ul style="padding-right: 20px;">
+                                <li>الشرق</li>
+                                <li>الجنوب</li>
+                                <li>الأوراس</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- السياسات الاستعمارية -->
+        <div style="background: #d1e7dd; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #0f5132; margin-top: 0; border-bottom: 2px solid #198754; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #198754; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">⚖️</span>
+                السياسات الاستعمارية الفرنسية في الجزائر
+            </h3>
+            <p style="line-height: 1.8; font-size: 16px;">الاستعمار لم يكن فقط عسكريًا بل مشروعًا شاملًا يهدف إلى طمس الهوية الجزائرية. شمل مختلف المجالات:</p>
+
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #dc3545;">
+                    <h4 style="color: #dc3545; margin-top: 0;">🟧 1. في الميدان السياسي – سياسة الإدماج</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>سنة 1848، أعلنت فرنسا أن الجزائر جزء من أراضيها</li>
+                        <li>قسمت الجزائر إلى 3 مقاطعات فرنسية</li>
+                        <li>حرمت الجزائريين من الحقوق السياسية</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #fd7e14;">
+                    <h4 style="color: #fd7e14; margin-top: 0;">🟥 2. في الميدان العسكري</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>ضاعفت من عدد جنودها</li>
+                        <li>واجهت المقاومات بقمع وحشي ومجازر جماعية</li>
+                        <li>اعتمدت سياسة الأرض المحروقة</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #20c997;">
+                    <h4 style="color: #20c997; margin-top: 0;">🟩 3. في المجال الاقتصادي – مصادرة الأراضي</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>صادرت أراضي الفلاحين الجزائريين بالقوة</li>
+                        <li>منحتها للمستوطنين الفرنسيين</li>
+                        <li>فرضت ضرائب مجحفة أدت إلى فقر وهجرة الفلاحين</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #0d6efd;">
+                    <h4 style="color: #0d6efd; margin-top: 0;">🟦 4. في المجال الاجتماعي والثقافي</h4>
+                    <div style="margin-top: 15px;">
+                        <h5 style="color: #6610f2;">🔸 سياسة الاستيطان:</h5>
+                        <ul style="padding-right: 20px;">
+                            <li>شجعت آلاف الأوروبيين خاصة من:
+                                <ul style="padding-right: 20px;">
+                                    <li>فرنسا</li>
+                                    <li>مالطا</li>
+                                    <li>إيطاليا</li>
+                                </ul>
+                            </li>
+                            <li>فرضت قوانين مثل مرسوم كريميو 1870</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <h5 style="color: #6610f2;">🔸 سياسة الفرنسة:</h5>
+                        <ul style="padding-right: 20px;">
+                            <li>فرضت اللغة الفرنسية في:
+                                <ul style="padding-right: 20px;">
+                                    <li>المدارس</li>
+                                    <li>الإدارة</li>
+                                </ul>
+                            </li>
+                            <li>منعت التعليم باللغة العربية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الأهداف والنتائج -->
+        <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+            <div style="flex: 1; background: #fff3e0; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #ffe0b2;">
+                <h3 style="color: #e65100; margin-top: 0; border-bottom: 2px solid #fb8c00; padding-bottom: 10px;">🎯 أهداف فرنسا من هذه السياسات</h3>
+                <ul style="padding-right: 20px;">
+                    <li>دمج الجزائر ثقافيًا وقانونيًا ضمن فرنسا</li>
+                    <li>تفكيك المجتمع الجزائري وضرب وحدته</li>
+                    <li>ضرب المقاومة الفكرية والروحية</li>
+                </ul>
+            </div>
+            <div style="flex: 1; background: #e3f2fd; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #bbdefb;">
+                <h3 style="color: #1565c0; margin-top: 0; border-bottom: 2px solid #1976d2; padding-bottom: 10px;">📌 النتائج المباشرة للاحتلال</h3>
+                <ul style="padding-right: 20px;">
+                    <li>توقيع معاهدة الاستسلام يوم 5 جويلية 1830</li>
+                    <li>فقدان السيادة الوطنية</li>
+                    <li>بداية عهد طويل من المعاناة والمقاومة</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    `,
+    "test": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        
+        <!-- الأسئلة -->
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #fd7e14; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟠</span>
+                    <div>
+                        <p style="font-weight: bold; color: #495057; margin-top: 0;">السؤال 1: ما سبب الحصار البحري الفرنسي على الجزائر بين 1827 و1830؟</p>
+                        <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #2b8a3e; margin-top: 0;">✅ الجواب:</p>
+                            <p>لإضعاف القوة البحرية الجزائرية ومنع وصول الدعم العثماني، وتمهيدًا للهجوم العسكري الفرنسي على الجزائر.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #40c057; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟢</span>
+                    <div>
+                        <p style="font-weight: bold; color: #495057; margin-top: 0;">السؤال 2: ما الحدث الذي أنهى السيادة الجزائرية رسميًا؟ ومتى وقع؟</p>
+                        <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #2b8a3e; margin-top: 0;">✅ الجواب:</p>
+                            <p>توقيع معاهدة الاستسلام من طرف الداي حسين في 5 جويلية 1830.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #4dabf7; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🔵</span>
+                    <div>
+                        <p style="font-weight: bold; color: #495057; margin-top: 0;">السؤال 3: اذكر ثلاث نتائج مباشرة للاحتلال الفرنسي.</p>
+                        <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #2b8a3e; margin-top: 0;">✅ الجواب:</p>
+                            <ol style="padding-right: 20px;">
+                                <li>توقيع معاهدة الاستسلام</li>
+                                <li>فقدان السيادة الوطنية</li>
+                                <li>بداية عهد من المعاناة والمقاومة وطمس الهوية</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #9775fa; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟣</span>
+                    <div>
+                        <p style="font-weight: bold; color: #495057; margin-top: 0;">السؤال 4 (تحليل): ما هدف سياسة التنصير؟ وكيف تم تطبيقها؟</p>
+                        <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #2b8a3e; margin-top: 0;">✅ الجواب:</p>
+                            <p>هدفها طمس الهوية الإسلامية والوطنية. تم تطبيقها من خلال تحويل المساجد إلى كنائس، ودعم البعثات التبشيرية، خاصة في الأرياف.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #f03e3e; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🔴</span>
+                    <div>
+                        <p style="font-weight: bold; color: #495057; margin-top: 0;">السؤال 5 (مقارنة): قارن بين سياسة الاستيطان وسياسة الفرنسة.</p>
+                        <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #2b8a3e; margin-top: 0;">✅ الجواب:</p>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                    <tr style="background: #dee2e6;">
+                                        <th style="padding: 12px; border: 1px solid #adb5bd; text-align: right;">المعيار</th>
+                                        <th style="padding: 12px; border: 1px solid #adb5bd; text-align: right;">سياسة الاستيطان</th>
+                                        <th style="padding: 12px; border: 1px solid #adb5bd; text-align: right;">سياسة الفرنسة</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid #adb5bd;">التعليم</td>
+                                        <td style="padding: 12px; border: 1px solid #adb5bd;">تشجيع الأوروبيين على السكن</td>
+                                        <td style="padding: 12px; border: 1px solid #adb5bd;">فرض اللغة الفرنسية في التعليم والإدارة</td>
+                                    </tr>
+                                    <tr style="background: #f8f9fa;">
+                                        <td style="padding: 12px; border: 1px solid #adb5bd;">القوانين</td>
+                                        <td style="padding: 12px; border: 1px solid #adb5bd;">فرض قوانين مثل كريميو والتجنيد</td>
+                                        <td style="padding: 12px; border: 1px solid #adb5bd;">منع اللغة العربية وإغلاق الكتاتيب</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "notes": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- عنوان الملخص -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color: #3498db;">📌 3. خلاصة سريعة للمراجعة</h2>
+        </div>
+
+        <!-- الجدول الملخص -->
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="background: #dee2e6;">
+                        <th style="padding: 12px; border: 1px solid #adb5bd; text-align: right;">🧩 المجال</th>
+                        <th style="padding: 12px; border: 1px solid #adb5bd; text-align: right;">📜 السياسات الفرنسية</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #adb5bd; font-weight: bold;">سياسي</td>
+                        <td style="padding: 12px; border: 1px solid #adb5bd;">الإلحاق الإداري – حرمان الحقوق السياسية</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #adb5bd; font-weight: bold;">عسكري</td>
+                        <td style="padding: 12px; border: 1px solid #adb5bd;">حملات قمع – مجازر – الأرض المحروقة</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #adb5bd; font-weight: bold;">اقتصادي</td>
+                        <td style="padding: 12px; border: 1px solid #adb5bd;">مصادرة الأراضي – فرض ضرائب مجحفة</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #adb5bd; font-weight: bold;">اجتماعي / ثقافي</td>
+                        <td style="padding: 12px; border: 1px solid #adb5bd;">فرنسة التعليم – منع العربية – غلق الكتاتيب</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #adb5bd; font-weight: bold;">ديني</td>
+                        <td style="padding: 12px; border: 1px solid #adb5bd;">تنصير – تحويل المساجد – دعم البعثات التبشيرية</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #adb5bd; font-weight: bold;">الإدماج</td>
+                        <td style="padding: 12px; border: 1px solid #adb5bd;">تقسيم الجزائر إلى 3 مقاطعات – لا جنسية للجزائريين</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- الدرس المستفاد -->
+        <div style="background: #e9ecef; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #212529; margin-top: 0; border-bottom: 2px solid #495057; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #495057; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🎓</span>
+                الدرس المستفاد
+            </h3>
+            <p style="line-height: 1.8; font-size: 16px;">لم يكن الاستعمار الفرنسي مجرد احتلال عسكري، بل مشروع استيطاني شامل استهدف الأرض، الإنسان، اللغة، الدين، والهوية، وهو ما فجر المقاومة الجزائرية بقوة ووضوح في أهدافها، كما ظهر لاحقًا في بيان أول نوفمبر.</p>
+        </div>
+    </div>
+    `
+},
+{
+    "id": "complete_lesson_popular_resistance_national_movement",
+    "title": "📘 المقاومة الشعبية والحركة الوطنية (الدرس الكامل)",
+    "description": "تحليل شامل للمقاومة الشعبية المسلحة والحركة الوطنية الجزائرية ضد الاستعمار الفرنسي - النسخة الكاملة غير الملخصة",
+    "explanation": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #3498db;">
+            <h3 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #3498db; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🕰️</span>
+                السياق التاريخي الكامل
+            </h3>
+            <p style="line-height: 1.8; font-size: 16px;">
+                بعد سقوط العاصمة الجزائرية في 5 يوليو 1830، لم يخضع الشعب الجزائري للاحتلال الفرنسي. يمكن تقسيم المقاومة الجزائرية ضد الاستعمار إلى مرحلتين رئيسيتين:
+            </p>
+            <ol style="padding-right: 20px; list-style-type: none;">
+                <li style="margin-bottom: 8px; position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    <strong>المقاومة الشعبية المسلحة (1830-1919):</strong> قادها زعماء محليون ودينيون مثل الأمير عبد القادر وأحمد باي
+                </li>
+                <li style="position: relative; padding-right: 25px;">
+                    <span style="position: absolute; right: 0; top: 2px; color: #3498db;">◼</span>
+                    <strong>الحركة الوطنية (1919-1954):</strong> تطورت إلى عمل سياسي منظم عبر الأحزاب والجمعيات
+                </li>
+            </ol>
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #1e88e5;">
+                <p style="font-weight: bold; color: #0d47a1; margin-top: 0;">ملاحظة تاريخية:</p>
+                <p>شهدت هذه الفترة تحولًا من المقاومة المحلية إلى العمل الوطني المنظم، مع استمرار نفس الأهداف: الاستقلال، الحفاظ على الهوية، ومقاومة الاستعمار.</p>
+            </div>
+        </div>
+
+        <div style="background: #fff8e1; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #ffb300;">
+            <h3 style="color: #e65100; margin-top: 0; border-bottom: 2px solid #ffb300; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #ffb300; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">⚔️</span>
+                الجزء الأول: المقاومة الشعبية المسلحة (1830-1919)
+            </h3>
+
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #fb8c00;">
+                    <h4 style="color: #e65100; margin-top: 0;">🔸 التعريف الكامل:</h4>
+                    <p>
+                        المقاومة الشعبية المسلحة هي حركات تمرد مسلح قادها زعماء جزائريون من مختلف المناطق ضد الاحتلال الفرنسي، تميزت بـ:
+                    </p>
+                    <ul style="padding-right: 20px;">
+                        <li>الطابع المحلي أو الجهوي (لم تكن وطنية شاملة)</li>
+                        <li>الاعتماد على التنظيم القبلي أو الديني</li>
+                        <li>غياب التنسيق بين مختلف الحركات</li>
+                        <li>الاعتماد على التقاليد العسكرية المحلية</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #e65100; margin-top: 0;">🧭 الجدول الكامل لأهم المقاومات المسلحة:</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                            <tr style="background: #ffe0b2;">
+                                <th style="padding: 12px; border: 1px solid #ffcc80; text-align: right;">المنطقة</th>
+                                <th style="padding: 12px; border: 1px solid #ffcc80; text-align: right;">القائد</th>
+                                <th style="padding: 12px; border: 1px solid #ffcc80; text-align: right;">الفترة</th>
+                                <th style="padding: 12px; border: 1px solid #ffcc80; text-align: right;">الخصائص</th>
+                                <th style="padding: 12px; border: 1px solid #ffcc80; text-align: right;">النتائج</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الغرب الجزائري</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الأمير عبد القادر</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">1832-1847</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - تأسيس دولة <br>
+                                    - جيش نظامي <br>
+                                    - عاصمة متنقلة (تاقدمت)
+                                </td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - معاهدة التافنة 1837 <br>
+                                    - استسلام 1847
+                                </td>
+                            </tr>
+                            <tr style="background: #fff3e0;">
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الشرق (قسنطينة)</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">أحمد باي</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">1830-1848</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - مقاومة حضرية <br>
+                                    - دفاع عن المدينة
+                                </td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - سقوط قسنطينة 1837 <br>
+                                    - استمرار المقاومة
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الأوراس (بسكرة)</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الشيخ بوزيان</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">1848-1849</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - ثورة الزعاطشة <br>
+                                    - مقاومة شعبية واسعة
+                                </td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - قمع شديد <br>
+                                    - إعدام القائد
+                                </td>
+                            </tr>
+                            <tr style="background: #fff3e0;">
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">القبائل</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">لالة فاطمة نسومر</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">1851-1857</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - مقاومة نسائية <br>
+                                    - تنظيم قبلي
+                                </td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - اعتقال القائدة <br>
+                                    - استمرار المقاومة
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الشمال القسنطيني</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">الشيخ المقراني والحداد</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">1871</td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - أكبر انتفاضة في القرن 19 <br>
+                                    - مشاركة واسعة
+                                </td>
+                                <td style="padding: 12px; border: 1px solid #fff3e0;">
+                                    - قمع دموي <br>
+                                    - مصادرة الأراضي
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #e53935;">
+                    <h4 style="color: #c62828; margin-top: 0;">❌ التحليل الكامل لأسباب فشل المقاومة الشعبية:</h4>
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <div style="flex: 1; background: #ffebee; padding: 15px; border-radius: 6px;">
+                            <h5 style="color: #c62828; margin-top: 0;">أسباب داخلية:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>غياب التنسيق بين القبائل والمناطق</li>
+                                <li>الاعتماد على التنظيم القبلي التقليدي</li>
+                                <li>عدم وجود رؤية وطنية شاملة</li>
+                                <li>انعدام التكافؤ العسكري</li>
+                                <li>عدم وجود دعم لوجستي مستمر</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; background: #ffebee; padding: 15px; border-radius: 6px;">
+                            <h5 style="color: #c62828; margin-top: 0;">أسباب خارجية:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>التفوق العسكري الفرنسي في العدد والتسليح</li>
+                                <li>سياسة "فرق تسد" الاستعمارية</li>
+                                <li>عدم وجود دعم خارجي للمقاومين</li>
+                                <li>تطور الأساليب العسكرية الفرنسية</li>
+                                <li>استخدام فرنسا للمستوطنين كدرع بشري</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="font-weight: bold; color: #c62828;">الخلاصة:</p>
+                        <p>رغم الفشل العسكري، حافظت هذه المقاومات على الروح الوطنية ومهدت لظهور الحركة الوطنية المنظمة، كما كبدت الفرنسيين خسائر كبيرة وأخرت سيطرتهم الكاملة على البلاد.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #43a047;">
+            <h3 style="color: #2e7d32; margin-top: 0; border-bottom: 2px solid #43a047; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #43a047; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">📜</span>
+                الجزء الثاني: الحركة الوطنية (1919-1954)
+            </h3>
+
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #66bb6a;">
+                    <h4 style="color: #2e7d32; margin-top: 0;">🔹 التعريف الكامل للحركة الوطنية:</h4>
+                    <p>
+                        هي مرحلة جديدة من النضال ضد الاستعمار، انتقلت من العمل المسلح المحلي إلى العمل السياسي المنظم، وتميزت بـ:
+                    </p>
+                    <ul style="padding-right: 20px;">
+                        <li>ظهور الأحزاب والجمعيات السياسية</li>
+                        <li>استخدام الصحافة والنشاط الفكري</li>
+                        <li>تنوع التيارات السياسية</li>
+                        <li>المطالبة بالحقوق السياسية</li>
+                        <li>ظهور قيادات وطنية مثقفة</li>
+                        <li>محاولة توحيد الصفوف رغم الخلافات</li>
+                    </ul>
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #2e7d32;">
+                        <p style="font-weight: bold; color: #1b5e20;">الأسباب الرئيسية لظهورها:</p>
+                        <ul style="padding-right: 20px;">
+                            <li>فشل المقاومة المسلحة في تحقيق الاستقلال</li>
+                            <li>تأثر النخبة الجزائرية بالأفكار التحررية العالمية</li>
+                            <li>تطور النظام التعليمي وبروز جيل جديد من المثقفين</li>
+                            <li>تغير الظروف الدولية بعد الحرب العالمية الأولى</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2e7d32; margin-top: 0;">🧭 الجدول الكامل للتيارات السياسية:</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                            <tr style="background: #c8e6c9;">
+                                <th style="padding: 12px; border: 1px solid #a5d6a7; text-align: right;">الاتجاه</th>
+                                <th style="padding: 12px; border: 1px solid #a5d6a7; text-align: right;">الزعماء</th>
+                                <th style="padding: 12px; border: 1px solid #a5d6a7; text-align: right;">الأحزاب</th>
+                                <th style="padding: 12px; border: 1px solid #a5d6a7; text-align: right;">المطالب</th>
+                                <th style="padding: 12px; border: 1px solid #a5d6a7; text-align: right;">النتائج</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">الاستقلاليون</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">مصالي الحاج</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">نجم شمال إفريقيا <br> حزب الشعب <br> حركة انتصار الحريات</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- الاستقلال الكامل <br> - الجمعية التأسيسية</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- تأسيس المنظمة الخاصة <br> - المشاركة في الثورة</td>
+                            </tr>
+                            <tr style="background: #e8f5e9;">
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">الإدماجيون</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">فرحات عباس</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">فدرالية المنتخبين <br> الاتحاد الديمقراطي</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- المساواة في الحقوق <br> - الإدماج مع فرنسا</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- التحول نحو الاستقلال بعد 1945</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">الإصلاحيون</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">ابن باديس <br> البشير الإبراهيمي</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">جمعية العلماء المسلمين</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- الحفاظ على الهوية <br> - التعليم العربي <br> - مقاومة الفرنسة</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- إنشاء المدارس الحرة <br> - نشر الوعي الوطني</td>
+                            </tr>
+                            <tr style="background: #e8f5e9;">
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">الشيوعيون</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">عمار أزقان</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">الحزب الشيوعي الجزائري</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- حقوق العمال <br> - العدالة الاجتماعية</td>
+                                <td style="padding: 12px; border: 1px solid #e8f5e9;">- تأثير محدود <br> - انضمام بعض أعضائه للثورة</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2e7d32; margin-top: 0;">📈 المراحل الكاملة لتطور الحركة الوطنية:</h4>
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <div style="flex: 1; background: #e8f5e9; padding: 15px; border-radius: 6px;">
+                            <h5 style="color: #2e7d32; margin-top: 0;">1919-1939:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>ظهور أول أحزاب (نجم شمال إفريقيا 1926)</li>
+                                <li>المطالبة بالحقوق السياسية</li>
+                                <li>تأسيس جمعية العلماء المسلمين 1931</li>
+                                <li>صدور قانون جونار 1919</li>
+                                <li>إنشاء فيدرالية المنتخبين 1927</li>
+                                <li>حل نجم شمال إفريقيا 1937</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; background: #e8f5e9; padding: 15px; border-radius: 6px;">
+                            <h5 style="color: #2e7d32; margin-top: 0;">1939-1945:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>تأثير الحرب العالمية الثانية</li>
+                                <li>بيان الشعب الجزائري 1943</li>
+                                <li>مجازر 8 ماي 1945 (سطيف، قالمة، خراطة)</li>
+                                <li>تأسيس حركة أحباب البيان 1944</li>
+                                <li>قمع الحركة الوطنية</li>
+                                <li>تزايد الراديكالية</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; background: #e8f5e9; padding: 15px; border-radius: 6px;">
+                            <h5 style="color: #2e7d32; margin-top: 0;">1945-1954:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>تأسيس حركة انتصار الحريات 1946</li>
+                                <li>إنشاء المنظمة الخاصة 1947</li>
+                                <li>أزمة حركة انتصار الحريات</li>
+                                <li>تأسيس اللجنة الثورية 1954</li>
+                                <li>التحضير للثورة المسلحة</li>
+                                <li>انقسام التيار الوطني</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #c8e6c9; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="font-weight: bold; color: #1b5e20;">التحليل التاريخي:</p>
+                        <p>شكلت الحركة الوطنية جسراً بين المقاومة الشعبية وثورة التحرير، حيث وفرت:</p>
+                        <ul style="padding-right: 20px;">
+                            <li>الإطار التنظيمي (الأحزاب، الجمعيات)</li>
+                            <li>الكوادر السياسية والعسكرية</li>
+                            <li>الأرضية الفكرية والايديولوجية</li>
+                            <li>التجربة النضالية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "test": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #e3f2fd; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #bbdefb;">
+            <h3 style="color: #1565c0; margin-top: 0; display: flex; align-items: center; justify-content: center;">
+                <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center;">
+                    <span style="margin-left: 8px;">📝</span>
+                    الاختبارات الكاملة
+                </span>
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: bold; color: #d84315;">السؤال 1: قارن بين المقاومة الشعبية والحركة الوطنية من حيث:</p>
+                    <ul style="padding-right: 20px; margin-bottom: 15px;">
+                        <li>الوسائل</li>
+                        <li>التنظيم</li>
+                        <li>النتائج</li>
+                        <li>القيادة</li>
+                        <li>الاستراتيجية</li>
+                    </ul>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px;">
+                        <p style="font-weight: bold; color: #2e7d32;">الإجابة النموذجية:</p>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                <tr style="background: #c8e6c9;">
+                                    <th style="padding: 10px; border: 1px solid #a5d6a7; text-align: right;">المعيار</th>
+                                    <th style="padding: 10px; border: 1px solid #a5d6a7; text-align: right;">المقاومة الشعبية</th>
+                                    <th style="padding: 10px; border: 1px solid #a5d6a7; text-align: right;">الحركة الوطنية</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">الوسائل</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">الكفاح المسلح، التمردات المحلية</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">العمل السياسي، الصحافة، المطالب القانونية</td>
+                                </tr>
+                                <tr style="background: #e8f5e9;">
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">التنظيم</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">قبلي، فردي، غير منسق</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">أحزاب، نقابات، هياكل منظمة</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">النتائج</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">فشل عسكري لكن حافظت على الروح الوطنية</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">إعداد الأرضية الفكرية والسياسية للثورة</td>
+                                </tr>
+                                <tr style="background: #e8f5e9;">
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">القيادة</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">زعماء محليون ودينيون</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">مثقفون وسياسيون</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">الاستراتيجية</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">المواجهة المباشرة</td>
+                                    <td style="padding: 10px; border: 1px solid #e8f5e9;">العمل السياسي الطويل المدى</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: bold; color: #d84315;">السؤال 2: ما دور مجازر 8 ماي 1945 في التحول نحو الكفاح المسلح؟</p>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px;">
+                        <p style="font-weight: bold; color: #2e7d32;">الإجابة النموذجية:</p>
+                        <p>كانت مجازر 8 ماي 1945 نقطة تحول رئيسية لأنها:</p>
+                        <ul style="padding-right: 20px;">
+                            <li>أثبتت فشل النضال السلمي</li>
+                            <li>قضت على ثقة الجزائريين في فرنسا</li>
+                            <li>وحّدت الصفوف ضد الاستعمار</li>
+                            <li>مهّدت فكريًا لثورة 1954</li>
+                            <li>أظهرت وحشية الاستعمار للرأي العام</li>
+                            <li>دفعت الكثير من الإدماجيين إلى تغيير مواقفهم</li>
+                            <li>أكدت ضرورة العمل المسلح</li>
+                        </ul>
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #1976d2;">
+                            <p style="font-weight: bold; color: #0d47a1;">النتائج المباشرة:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>تأسيس المنظمة الخاصة (الجناح العسكري) عام 1947</li>
+                                <li>تزايد النزعة الثورية داخل حركة انتصار الحريات</li>
+                                <li>بداية التحضير العملي للثورة المسلحة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: bold; color: #d84315;">السؤال 3: حلل تطور مواقف فرحات عباس من الإدماج إلى الثورة.</p>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px;">
+                        <p style="font-weight: bold; color: #2e7d32;">الإجابة النموذجية:</p>
+                        <p>مر فرحات عباس بثلاث مراحل رئيسية:</p>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                <tr style="background: #bbdefb;">
+                                    <th style="padding: 10px; border: 1px solid #90caf9; text-align: right;">المرحلة</th>
+                                    <th style="padding: 10px; border: 1px solid #90caf9; text-align: right;">الموقف</th>
+                                    <th style="padding: 10px; border: 1px solid #90caf9; text-align: right;">الأسباب</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">1938-1943</td>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">إدماجي (المطالبة بالمساواة)</td>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">إيمانه بإمكانية الإصلاح ضمن النظام الفرنسي</td>
+                                </tr>
+                                <tr style="background: #e3f2fd;">
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">1943-1945</td>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">انتقالي (بيان الشعب الجزائري)</td>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">خيبة الأمل من وعود فرنسا</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">بعد 1945</td>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">ثوري (دعم الثورة)</td>
+                                    <td style="padding: 10px; border: 1px solid #e3f2fd;">مجازر 8 ماي وإدراك أن الثورة هي الحل</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #2e7d32;">
+                            <p style="font-weight: bold; color: #1b5e20;">التحليل:</p>
+                            <p>يمثل تطور مواقف فرحات عباس تحولاً نموذجياً في الفكر السياسي الجزائري، من الإيمان بالإصلاح التدريجي إلى اقتناعه بضرورة الكفاح المسلح، مما يعكس:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>تصلب الموقف الفرنسي</li>
+                                <li>فشل كل محاولات الحل السلمي</li>
+                                <li>تأثير الأحداث الدموية في تغيير المواقف</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p style="font-weight: bold; color: #d84315;">السؤال 4: ما أهمية جمعية العلماء المسلمين في إعداد الثورة؟</p>
+                    
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px;">
+                        <p style="font-weight: bold; color: #2e7d32;">الإجابة النموذجية:</p>
+                        <p>لعبت جمعية العلماء المسلمين دوراً أساسياً من خلال:</p>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                <tr style="background: #d1c4e9;">
+                                    <th style="padding: 10px; border: 1px solid #b39ddb; text-align: right;">المجال</th>
+                                    <th style="padding: 10px; border: 1px solid #b39ddb; text-align: right;">الإنجازات</th>
+                                    <th style="padding: 10px; border: 1px solid #b39ddb; text-align: right;">التأثير على الثورة</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">التعليم</td>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">إنشاء المدارس الحرة</td>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">تكوين جيل واعي</td>
+                                </tr>
+                                <tr style="background: #ede7f6;">
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">الثقافة</td>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">نشر الوعي الوطني</td>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">ترسيخ الهوية الجزائرية</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">السياسة</td>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">مواجهة سياسة الفرنسة</td>
+                                    <td style="padding: 10px; border: 1px solid #ede7f6;">إعداد الأرضية الفكرية للثورة</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background: #d1c4e9; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p style="font-weight: bold; color: #4527a0;">الخلاصة:</p>
+                            <p>كانت الجمعية بمثابة حصن ضد الفرنسة، وساهمت في الحفاظ على الهوية العربية الإسلامية للجزائر، مما وفر الأساس الثقافي والفكري الذي استندت إليه الثورة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "notes": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f3e5f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #e1bee7;">
+            <h3 style="color: #6a1b9a; margin-top: 0; display: flex; align-items: center;">
+                <span style="background: #9c27b0; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">📚</span>
+                الملاحظات الكاملة
+            </h3>
+            
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #7b1fa2; margin-top: 0;">📊 الجدول الكامل للمقارنة:</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                            <tr style="background: #e1bee7;">
+                                <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">النقطة</th>
+                                <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">المقاومة الشعبية</th>
+                                <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">الحركة الوطنية</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">الفترة</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">1830-1919</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">1919-1954</td>
+                            </tr>
+                            <tr style="background: #f3e5f5;">
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">القيادة</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">زعماء محليون ودينيون</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">مثقفون وسياسيون</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">الأهداف</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">الدفاع عن الأرض والدين</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">الاستقلال الوطني</td>
+                            </tr>
+                            <tr style="background: #f3e5f5;">
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">الوسائل</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">الكفاح المسلح المحلي</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">العمل السياسي المنظم</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">التنظيم</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">قبلي وعشائري</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">أحزاب وجمعيات</td>
+                            </tr>
+                            <tr style="background: #f3e5f5;">
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">النتائج</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">فشل عسكري لكن حافظت على الروح الوطنية</td>
+                                <td style="padding: 12px; border: 1px solid #f3e5f5;">مهّدت للثورة المسلحة</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #7b1fa2; margin-top: 0;">⏳ الخط الزمني الكامل:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">1</div>
+                            <div>
+                                <strong>1830:</strong> بداية الاحتلال الفرنسي للجزائر
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">2</div>
+                            <div>
+                                <strong>1832-1847:</strong> مقاومة الأمير عبد القادر
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">3</div>
+                            <div>
+                                <strong>1871:</strong> ثورة المقراني والحداد
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">4</div>
+                            <div>
+                                <strong>1919:</strong> قانون جونار وبداية الحركة الوطنية
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">5</div>
+                            <div>
+                                <strong>1926:</strong> تأسيس نجم شمال إفريقيا
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">6</div>
+                            <div>
+                                <strong>1931:</strong> تأسيس جمعية العلماء المسلمين
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">7</div>
+                            <div>
+                                <strong>1937:</strong> تأسيس حزب الشعب الجزائري
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">8</div>
+                            <div>
+                                <strong>1943:</strong> بيان الشعب الجزائري
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">9</div>
+                            <div>
+                                <strong>1945:</strong> مجازر 8 ماي
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">10</div>
+                            <div>
+                                <strong>1947:</strong> تأسيس المنظمة الخاصة
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="background: #9c27b0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">11</div>
+                            <div>
+                                <strong>1954:</strong> تأسيس اللجنة الثورية وانطلاق الثورة
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #ede7f6; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #7e57c2;">
+                    <h4 style="color: #4527a0; margin-top: 0;">📌 الخلاصة النهائية:</h4>
+                    <p>تمثل المقاومة الشعبية والحركة الوطنية مرحلتين متكاملتين في النضال الجزائري ضد الاستعمار:</p>
+                    <ul style="padding-right: 20px;">
+                        <li><strong>المقاومة الشعبية:</strong> حافظت على جذوة المقاومة وروح التحرر رغم القمع</li>
+                        <li><strong>الحركة الوطنية:</strong> وفرت الإطار التنظيمي والفكري للثورة</li>
+                        <li>شكلت المرحلتان معاً مساراً متكاملاً أدى إلى ثورة التحرير</li>
+                    </ul>
+                    <div style="background: #d1c4e9; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="font-weight: bold; color: #4527a0;">الدرس المستفاد:</p>
+                        <p>النضال التحرري عملية تراكمية، حيث أن كل مرحلة تستند إلى إنجازات المرحلة السابقة وتطورها، مما يؤكد أن الثورة المسلحة لم تكن حدثاً عفوياً بل نتيجة تراكم كمي ونوعي في الوعي والتنظيم.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+},
+{
+    "id": "algerian_revolution_outbreak_early_stages",
+    "title": "اندلاع الثورة الجزائرية ومراحلها الأولى",
+    "description": "تحليل شامل لأسباب اندلاع الثورة التحريرية والمراحل الأولى لنضال الشعب الجزائري",
+    "explanation": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- العنوان الرئيسي -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #2c3e50;">اندلاع الثورة الجزائرية ومراحلها الأولى</h1>
+            <h2 style="color: #e74c3c;">📘 الدرس الكامل والمفصل</h2>
+        </div>
+
+        <!-- الأسباب العميقة -->
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #2ecc71;">
+            <h3 style="color: #27ae60; margin-top: 0; border-bottom: 2px solid #2ecc71; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #2ecc71; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟩</span>
+                أولاً: الأسباب العميقة وراء اندلاع الثورة
+            </h3>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #e74c3c;">
+                    <h4 style="color: #e74c3c; margin-top: 0;">الأسباب الداخلية:</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>فشل العمل السياسي: تجاهلت فرنسا مطالب الأحزاب رغم نضال دام لعقود، خاصة بعد مجازر 8 ماي 1945.</li>
+                        <li>استمرار السياسة الاستعمارية: الإدماج، التنصير، القمع، التمييز.</li>
+                        <li>قمع الحريات واعتقال القادة الوطنيين.</li>
+                        <li>خلافات داخل الأحزاب خاصة في MTLD بين المركزيين والمصاليين.</li>
+                        <li>ظهور تنظيم جديد: اللجنة الثورية للوحدة والعمل ردًا على الجمود السياسي.</li>
+                    </ul>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #3498db;">
+                    <h4 style="color: #3498db; margin-top: 0;">الأسباب الخارجية:</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>هزيمة فرنسا في ديان بيان فو 1954.</li>
+                        <li>تصاعد الحركات التحررية في آسيا وإفريقيا.</li>
+                        <li>مبادئ الأمم المتحدة (حق تقرير المصير).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- التحضير للثورة -->
+        <div style="background: #fff8e1; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #f39c12;">
+            <h3 style="color: #e67e22; margin-top: 0; border-bottom: 2px solid #f39c12; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #f39c12; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                ثانياً: التحضير للثورة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>تأسيس اللجنة الثورية للوحدة والعمل (23 مارس 1954).</li>
+                    <li>اجتماع لجنة الـ22 (25 جويلية 1954) لتحديد الانطلاق وتنظيم البلاد إلى 5 مناطق.</li>
+                    <li>أبرز قادة الإعداد: مجموعة الستة:
+                        <ul style="padding-right: 20px;">
+                            <li>مصطفى بن بولعيد</li>
+                            <li>العربي بن مهيدي</li>
+                            <li>محمد بوضياف</li>
+                            <li>ديدوش مراد</li>
+                            <li>كريم بلقاسم</li>
+                            <li>رابح بيطاط</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- اندلاع الثورة -->
+        <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #2ecc71;">
+            <h3 style="color: #27ae60; margin-top: 0; border-bottom: 2px solid #2ecc71; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #2ecc71; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                ثالثاً: اندلاع الثورة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>10 أكتوبر 1954:
+                        <ul style="padding-right: 20px;">
+                            <li>تأسيس جبهة التحرير الوطني.</li>
+                            <li>تحديد 1 نوفمبر 1954 كتاريخ للانطلاق.</li>
+                            <li>تقسيم البلاد إلى 5 ولايات.</li>
+                        </ul>
+                    </li>
+                    <li>ليلة أول نوفمبر 1954: أكثر من 30 عملية متزامنة عبر الوطن → تنظيم محكم ودقة التخطيط.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- مراحل تطور الثورة -->
+        <div style="background: #e3f2fd; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #2980b9;">
+            <h3 style="color: #1565c0; margin-top: 0; border-bottom: 2px solid #2980b9; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #2980b9; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                رابعاً: مراحل تطور الثورة
+            </h3>
+            
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #f1c40f;">
+                    <h4 style="color: #f39c12; margin-top: 0;">🟨 المرحلة 1: مرحلة الانطلاقة (1954–1956)</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>تركيز العمليات في الأوراس والشمال القسنطيني.</li>
+                        <li>فرنسا تطلق مشروع جاك سوستال لتصوير الثورة كثورة جياع.</li>
+                        <li>مؤتمر باندونغ (24 أفريل 1955) دعم الثورة.</li>
+                    </ul>
+                    
+                    <div style="background: #fff8e1; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #e67e22;">
+                        <h5 style="color: #d35400; margin-top: 0;">📍 هجومات الشمال القسنطيني (20 أوت 1955)</h5>
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;">
+                                <p style="font-weight: bold; color: #e74c3c;">القائد:</p>
+                                <p>زيغود يوسف.</p>
+                            </div>
+                            <div style="flex: 1;">
+                                <p style="font-weight: bold; color: #e74c3c;">المناطق:</p>
+                                <p>قسنطينة، سكيكدة، الحروش، قالمة...</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px;">
+                            <p style="font-weight: bold; color: #e74c3c;">🎯 الأهداف:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>كسر الحصار عن الأوراس.</li>
+                                <li>تأكيد شمولية الثورة.</li>
+                                <li>تعبئة الشعب.</li>
+                                <li>لفت انتباه العالم.</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 15px;">
+                            <p style="font-weight: bold; color: #e74c3c;">⚔️ النتائج:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>ضرب مراكز استعمارية.</li>
+                                <li>مجازر فرنسية عنيفة.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #3498db;">
+                    <h4 style="color: #2980b9; margin-top: 0;">🟨 المرحلة 2: مرحلة التنظيم (1956–1958)</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>مؤتمر الصومام (20 أوت 1956): نقطة تحول استراتيجية.</li>
+                        <li>توسيع الولايات إلى 6.</li>
+                        <li>تأسيس المجلس الوطني للثورة ولجنة التنسيق والتنفيذ.</li>
+                        <li>إقرار مبدأ أولوية السياسي على العسكري.</li>
+                        <li>تأسيس الحكومة المؤقتة: 19 سبتمبر 1958.</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #e74c3c;">
+                    <h4 style="color: #c0392b; margin-top: 0;">🟨 المرحلة 3: مرحلة الإبادة (1958–1960)</h4>
+                    <p>فرنسا تطبق خطة شاملة عسكرية، إعلامية، اقتصادية:</p>
+                    
+                    <div style="overflow-x: auto; margin-top: 15px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background: #f5b7b1;">
+                                <th style="padding: 12px; border: 1px solid #e74c3c; text-align: right;">المجال</th>
+                                <th style="padding: 12px; border: 1px solid #e74c3c; text-align: right;">السياسات الاستعمارية</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">عسكري</td>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">مشاريع شال وموريس، أسلاك شائكة ومراكز عسكرية</td>
+                            </tr>
+                            <tr style="background: #fadbd8;">
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">سياسي/إعلامي</td>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">اعتبار القضية داخلية، تأسيس حكومة فرنسية</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">اقتصادي</td>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">مشروع قسنطينة الوهمي لإغراء الجزائريين</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <p style="margin-top: 15px;">الهدف: إبادة الثورة وتضليل الرأي العام.</p>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #9b59b6;">
+                    <h4 style="color: #8e44ad; margin-top: 0;">🟨 المرحلة 4: مرحلة التفاوض (1960–1962)</h4>
+                    <p>مع فشل القمع، فرنسا تدخل التفاوض.</p>
+                    
+                    <div style="display: flex; gap: 20px; margin-top: 15px;">
+                        <div style="flex: 1; background: #f5eef8; padding: 15px; border-radius: 8px;">
+                            <h5 style="color: #8e44ad; margin-top: 0;">🔹 الموقف الجزائري:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>وحدة التراب.</li>
+                                <li>جبهة التحرير ممثل شرعي وحيد.</li>
+                                <li>وقف إطلاق النار.</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="flex: 1; background: #f5eef8; padding: 15px; border-radius: 8px;">
+                            <h5 style="color: #8e44ad; margin-top: 0;">🔹 الموقف الفرنسي:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>السيادة الفرنسية.</li>
+                                <li>وحدة التراب الفرنسي.</li>
+                                <li>رفض الاستقلال التام ومحاولات التقسيم.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #e8daef; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="font-weight: bold; color: #6c3483;">مراحل التفاوض:</p>
+                        <ul style="padding-right: 20px;">
+                            <li>لقاءات سرية.</li>
+                            <li>إيفيان الأولى (1961) – فشل.</li>
+                            <li>إيفيان الثانية (1962) – نجاح.</li>
+                            <li>وقف إطلاق النار: 19 مارس 1962.</li>
+                            <li>اعتراف بالحكومة المؤقتة للجمهورية الجزائرية.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- استعادة السيادة الوطنية -->
+        <div style="background: #f5eef8; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #9b59b6;">
+            <h3 style="color: #8e44ad; margin-top: 0; border-bottom: 2px solid #9b59b6; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #9b59b6; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                خامساً: استعادة السيادة الوطنية (1962)
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>5 جويلية 1962: استقلال الجزائر بعد نضال مرير.</li>
+                    <li>تحديات الدولة الفتية:
+                        <ul style="padding-right: 20px;">
+                            <li>الفقر، الأمية، البطالة.</li>
+                            <li>غياب المؤسسات.</li>
+                            <li>ضعف في التعليم والصحة.</li>
+                        </ul>
+                    </li>
+                    <li>انطلاق برنامج طرابلس لبناء الدولة.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- خصائص الثورة -->
+        <div style="background: #eaf2f8; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #3498db;">
+            <h3 style="color: #2980b9; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #3498db; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">⭐</span>
+                خصائص الثورة الجزائرية
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>شمولية المشاركة: نساء، طلاب، فلاحون، مغتربون.</li>
+                    <li>تنظيم محكم رغم الصعوبات.</li>
+                    <li>ثورة سياسية وفكرية، لا فقط عسكرية.</li>
+                    <li>دعم دولي واسع بعد مؤتمر باندونغ.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- الدروس المستفادة -->
+        <div style="background: #e8f8f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #1abc9c;">
+            <h3 style="color: #16a085; margin-top: 0; border-bottom: 2px solid #1abc9c; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #1abc9c; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🔍</span>
+                الدروس المستفادة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <p>الثورة الجزائرية كانت ثمرة وعي وتنظيم ونضال طويل. أثبتت أن الإرادة الشعبية والتنظيم الثوري قادران على هزيمة أقوى الجيوش. ألهمت الشعوب في آسيا وإفريقيا.</p>
+            </div>
+        </div>
+    </div>
+    `,
+    "test": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #2c3e50; margin-top: 0; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+                📝 اختبار تدريبي مع الإجابات النموذجية
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #e74c3c; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟠</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 1: اذكر 3 من الأسباب الداخلية التي دفعت إلى اندلاع الثورة الجزائرية؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>فشل النضال السياسي بعد مجازر 8 ماي.</li>
+                                <li>استمرار السياسة الاستعمارية القمعية.</li>
+                                <li>انقسام الأحزاب وظهور اللجنة الثورية للوحدة والعمل.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #2ecc71; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟢</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 2: ما هي أهداف هجومات 20 أوت 1955؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>فك الحصار عن الأوراس.</li>
+                                <li>تأكيد أن الثورة وطنية.</li>
+                                <li>تعبئة الشعب.</li>
+                                <li>لفت أنظار العالم.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #3498db; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🔵</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 3: ما القرارات الهامة لمؤتمر الصومام؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>تقسيم البلاد إلى 6 ولايات.</li>
+                                <li>تأسيس المجلس الوطني للثورة.</li>
+                                <li>ترسيم أولوية السياسي على العسكري.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #9b59b6; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟣</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 4: ما الفرق بين الموقف الجزائري والفرنسي خلال المفاوضات؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                    <tr style="background: #e0e0e0;">
+                                        <th style="padding: 10px; border: 1px solid #bdbdbd; text-align: right;">الموقف الجزائري</th>
+                                        <th style="padding: 10px; border: 1px solid #bdbdbd; text-align: right;">الموقف الفرنسي</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">وحدة التراب الوطني</td>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">محاولة التقسيم</td>
+                                    </tr>
+                                    <tr style="background: #f5f5f5;">
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">جبهة التحرير ممثل وحيد</td>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">رفض الاعتراف بالجبهة</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">وقف إطلاق النار</td>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">السيادة الفرنسية</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #e74c3c; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🔴</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 5: ما هي خصائص الثورة الجزائرية؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>شارك فيها مختلف فئات الشعب.</li>
+                                <li>تنظيم دقيق رغم الظروف.</li>
+                                <li>ثورة سياسية وفكرية.</li>
+                                <li>دعم عالمي كبير.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "notes": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f3e5f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #e1bee7;">
+            <h3 style="color: #6a1b9a; margin-top: 0; text-align: center; border-bottom: 2px solid #9c27b0; padding-bottom: 10px;">
+                📌 ملخص مركّز للمراجعة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="background: #e1bee7;">
+                            <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">المحور</th>
+                            <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">المضمون</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الأسباب الداخلية</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">فشل سياسي – قمع – تمييز – انقسامات حزبية</td>
+                        </tr>
+                        <tr style="background: #f3e5f5;">
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الأسباب الخارجية</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">تراجع فرنسا – حركات تحرر – دعم أممي</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">التحضير</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">لجنة 22 – مجموعة الستة – التقسيم إلى 5 مناطق</td>
+                        </tr>
+                        <tr style="background: #f3e5f5;">
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">اندلاع الثورة</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">1 نوفمبر 1954 – 30 عملية – تأسيس FLN</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">مراحل الثورة</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الانطلاقة – التنظيم – الإبادة – التفاوض</td>
+                        </tr>
+                        <tr style="background: #f3e5f5;">
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الاستقلال</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">وقف النار: 19 مارس 1962 – الاستقلال: 5 جويلية</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">التحديات بعد الاستقلال</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الفقر – الجهل – البناء – برنامج طرابلس</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #2e7d32;">
+                    <h4 style="color: #1b5e20; margin-top: 0;">📝 ملاحظات هامة:</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>الثورة الجزائرية كانت نموذجاً للثورات الشعبية المنظمة.</li>
+                        <li>تميزت بمرحلية العمل ووضوح الأهداف.</li>
+                        <li>جمعت بين الكفاح المسلح والعمل السياسي والدبلوماسي.</li>
+                        <li>أثبتت أن الإرادة الشعبية قادرة على هزيمة الاستعمار.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+},
+{
+    "id": "algerian_revolution_outbreak_early_stages",
+    "title": "اندلاع الثورة الجزائرية ومراحلها الأولى",
+    "description": "تحليل شامل لأسباب اندلاع الثورة التحريرية والمراحل الأولى لنضال الشعب الجزائري",
+    "explanation": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- العنوان الرئيسي -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #2c3e50;">اندلاع الثورة الجزائرية ومراحلها الأولى</h1>
+            <h2 style="color: #e74c3c;">📘 الدرس الكامل والمفصل</h2>
+        </div>
+
+        <!-- الأسباب العميقة -->
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #2ecc71;">
+            <h3 style="color: #27ae60; margin-top: 0; border-bottom: 2px solid #2ecc71; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #2ecc71; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟩</span>
+                أولاً: الأسباب العميقة وراء اندلاع الثورة
+            </h3>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #e74c3c;">
+                    <h4 style="color: #e74c3c; margin-top: 0;">الأسباب الداخلية:</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>فشل العمل السياسي: تجاهلت فرنسا مطالب الأحزاب رغم نضال دام لعقود، خاصة بعد مجازر 8 ماي 1945.</li>
+                        <li>استمرار السياسة الاستعمارية: الإدماج، التنصير، القمع، التمييز.</li>
+                        <li>قمع الحريات واعتقال القادة الوطنيين.</li>
+                        <li>خلافات داخل الأحزاب خاصة في MTLD بين المركزيين والمصاليين.</li>
+                        <li>ظهور تنظيم جديد: اللجنة الثورية للوحدة والعمل ردًا على الجمود السياسي.</li>
+                    </ul>
+                </div>
+                
+                <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #3498db;">
+                    <h4 style="color: #3498db; margin-top: 0;">الأسباب الخارجية:</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>هزيمة فرنسا في ديان بيان فو 1954.</li>
+                        <li>تصاعد الحركات التحررية في آسيا وإفريقيا.</li>
+                        <li>مبادئ الأمم المتحدة (حق تقرير المصير).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- التحضير للثورة -->
+        <div style="background: #fff8e1; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #f39c12;">
+            <h3 style="color: #e67e22; margin-top: 0; border-bottom: 2px solid #f39c12; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #f39c12; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                ثانياً: التحضير للثورة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>تأسيس اللجنة الثورية للوحدة والعمل (23 مارس 1954).</li>
+                    <li>اجتماع لجنة الـ22 (25 جويلية 1954) لتحديد الانطلاق وتنظيم البلاد إلى 5 مناطق.</li>
+                    <li>أبرز قادة الإعداد: مجموعة الستة:
+                        <ul style="padding-right: 20px;">
+                            <li>مصطفى بن بولعيد</li>
+                            <li>العربي بن مهيدي</li>
+                            <li>محمد بوضياف</li>
+                            <li>ديدوش مراد</li>
+                            <li>كريم بلقاسم</li>
+                            <li>رابح بيطاط</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- اندلاع الثورة -->
+        <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #2ecc71;">
+            <h3 style="color: #27ae60; margin-top: 0; border-bottom: 2px solid #2ecc71; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #2ecc71; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                ثالثاً: اندلاع الثورة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>10 أكتوبر 1954:
+                        <ul style="padding-right: 20px;">
+                            <li>تأسيس جبهة التحرير الوطني.</li>
+                            <li>تحديد 1 نوفمبر 1954 كتاريخ للانطلاق.</li>
+                            <li>تقسيم البلاد إلى 5 ولايات.</li>
+                        </ul>
+                    </li>
+                    <li>ليلة أول نوفمبر 1954: أكثر من 30 عملية متزامنة عبر الوطن → تنظيم محكم ودقة التخطيط.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- مراحل تطور الثورة -->
+        <div style="background: #e3f2fd; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #2980b9;">
+            <h3 style="color: #1565c0; margin-top: 0; border-bottom: 2px solid #2980b9; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #2980b9; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                رابعاً: مراحل تطور الثورة
+            </h3>
+            
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #f1c40f;">
+                    <h4 style="color: #f39c12; margin-top: 0;">🟨 المرحلة 1: مرحلة الانطلاقة (1954–1956)</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>تركيز العمليات في الأوراس والشمال القسنطيني.</li>
+                        <li>فرنسا تطلق مشروع جاك سوستال لتصوير الثورة كثورة جياع.</li>
+                        <li>مؤتمر باندونغ (24 أفريل 1955) دعم الثورة.</li>
+                    </ul>
+                    
+                    <div style="background: #fff8e1; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #e67e22;">
+                        <h5 style="color: #d35400; margin-top: 0;">📍 هجومات الشمال القسنطيني (20 أوت 1955)</h5>
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;">
+                                <p style="font-weight: bold; color: #e74c3c;">القائد:</p>
+                                <p>زيغود يوسف.</p>
+                            </div>
+                            <div style="flex: 1;">
+                                <p style="font-weight: bold; color: #e74c3c;">المناطق:</p>
+                                <p>قسنطينة، سكيكدة، الحروش، قالمة...</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px;">
+                            <p style="font-weight: bold; color: #e74c3c;">🎯 الأهداف:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>كسر الحصار عن الأوراس.</li>
+                                <li>تأكيد شمولية الثورة.</li>
+                                <li>تعبئة الشعب.</li>
+                                <li>لفت انتباه العالم.</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 15px;">
+                            <p style="font-weight: bold; color: #e74c3c;">⚔️ النتائج:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>ضرب مراكز استعمارية.</li>
+                                <li>مجازر فرنسية عنيفة.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #3498db;">
+                    <h4 style="color: #2980b9; margin-top: 0;">🟨 المرحلة 2: مرحلة التنظيم (1956–1958)</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>مؤتمر الصومام (20 أوت 1956): نقطة تحول استراتيجية.</li>
+                        <li>توسيع الولايات إلى 6.</li>
+                        <li>تأسيس المجلس الوطني للثورة ولجنة التنسيق والتنفيذ.</li>
+                        <li>إقرار مبدأ أولوية السياسي على العسكري.</li>
+                        <li>تأسيس الحكومة المؤقتة: 19 سبتمبر 1958.</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #e74c3c;">
+                    <h4 style="color: #c0392b; margin-top: 0;">🟨 المرحلة 3: مرحلة الإبادة (1958–1960)</h4>
+                    <p>فرنسا تطبق خطة شاملة عسكرية، إعلامية، اقتصادية:</p>
+                    
+                    <div style="overflow-x: auto; margin-top: 15px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background: #f5b7b1;">
+                                <th style="padding: 12px; border: 1px solid #e74c3c; text-align: right;">المجال</th>
+                                <th style="padding: 12px; border: 1px solid #e74c3c; text-align: right;">السياسات الاستعمارية</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">عسكري</td>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">مشاريع شال وموريس، أسلاك شائكة ومراكز عسكرية</td>
+                            </tr>
+                            <tr style="background: #fadbd8;">
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">سياسي/إعلامي</td>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">اعتبار القضية داخلية، تأسيس حكومة فرنسية</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">اقتصادي</td>
+                                <td style="padding: 12px; border: 1px solid #fadbd8;">مشروع قسنطينة الوهمي لإغراء الجزائريين</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <p style="margin-top: 15px;">الهدف: إبادة الثورة وتضليل الرأي العام.</p>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #9b59b6;">
+                    <h4 style="color: #8e44ad; margin-top: 0;">🟨 المرحلة 4: مرحلة التفاوض (1960–1962)</h4>
+                    <p>مع فشل القمع، فرنسا تدخل التفاوض.</p>
+                    
+                    <div style="display: flex; gap: 20px; margin-top: 15px;">
+                        <div style="flex: 1; background: #f5eef8; padding: 15px; border-radius: 8px;">
+                            <h5 style="color: #8e44ad; margin-top: 0;">🔹 الموقف الجزائري:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>وحدة التراب.</li>
+                                <li>جبهة التحرير ممثل شرعي وحيد.</li>
+                                <li>وقف إطلاق النار.</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="flex: 1; background: #f5eef8; padding: 15px; border-radius: 8px;">
+                            <h5 style="color: #8e44ad; margin-top: 0;">🔹 الموقف الفرنسي:</h5>
+                            <ul style="padding-right: 20px;">
+                                <li>السيادة الفرنسية.</li>
+                                <li>وحدة التراب الفرنسي.</li>
+                                <li>رفض الاستقلال التام ومحاولات التقسيم.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #e8daef; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="font-weight: bold; color: #6c3483;">مراحل التفاوض:</p>
+                        <ul style="padding-right: 20px;">
+                            <li>لقاءات سرية.</li>
+                            <li>إيفيان الأولى (1961) – فشل.</li>
+                            <li>إيفيان الثانية (1962) – نجاح.</li>
+                            <li>وقف إطلاق النار: 19 مارس 1962.</li>
+                            <li>اعتراف بالحكومة المؤقتة للجمهورية الجزائرية.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- استعادة السيادة الوطنية -->
+        <div style="background: #f5eef8; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #9b59b6;">
+            <h3 style="color: #8e44ad; margin-top: 0; border-bottom: 2px solid #9b59b6; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #9b59b6; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🟢</span>
+                خامساً: استعادة السيادة الوطنية (1962)
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>5 جويلية 1962: استقلال الجزائر بعد نضال مرير.</li>
+                    <li>تحديات الدولة الفتية:
+                        <ul style="padding-right: 20px;">
+                            <li>الفقر، الأمية، البطالة.</li>
+                            <li>غياب المؤسسات.</li>
+                            <li>ضعف في التعليم والصحة.</li>
+                        </ul>
+                    </li>
+                    <li>انطلاق برنامج طرابلس لبناء الدولة.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- خصائص الثورة -->
+        <div style="background: #eaf2f8; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #3498db;">
+            <h3 style="color: #2980b9; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #3498db; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">⭐</span>
+                خصائص الثورة الجزائرية
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ul style="padding-right: 20px;">
+                    <li>شمولية المشاركة: نساء، طلاب، فلاحون، مغتربون.</li>
+                    <li>تنظيم محكم رغم الصعوبات.</li>
+                    <li>ثورة سياسية وفكرية، لا فقط عسكرية.</li>
+                    <li>دعم دولي واسع بعد مؤتمر باندونغ.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- الدروس المستفادة -->
+        <div style="background: #e8f8f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-right: 5px solid #1abc9c;">
+            <h3 style="color: #16a085; margin-top: 0; border-bottom: 2px solid #1abc9c; padding-bottom: 10px; display: flex; align-items: center;">
+                <span style="background: #1abc9c; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;">🔍</span>
+                الدروس المستفادة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <p>الثورة الجزائرية كانت ثمرة وعي وتنظيم ونضال طويل. أثبتت أن الإرادة الشعبية والتنظيم الثوري قادران على هزيمة أقوى الجيوش. ألهمت الشعوب في آسيا وإفريقيا.</p>
+            </div>
+        </div>
+    </div>
+    `,
+    "test": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="color: #2c3e50; margin-top: 0; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+                📝 اختبار تدريبي مع الإجابات النموذجية
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #e74c3c; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟠</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 1: اذكر 3 من الأسباب الداخلية التي دفعت إلى اندلاع الثورة الجزائرية؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>فشل النضال السياسي بعد مجازر 8 ماي.</li>
+                                <li>استمرار السياسة الاستعمارية القمعية.</li>
+                                <li>انقسام الأحزاب وظهور اللجنة الثورية للوحدة والعمل.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #2ecc71; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟢</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 2: ما هي أهداف هجومات 20 أوت 1955؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>فك الحصار عن الأوراس.</li>
+                                <li>تأكيد أن الثورة وطنية.</li>
+                                <li>تعبئة الشعب.</li>
+                                <li>لفت أنظار العالم.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #3498db; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🔵</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 3: ما القرارات الهامة لمؤتمر الصومام؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>تقسيم البلاد إلى 6 ولايات.</li>
+                                <li>تأسيس المجلس الوطني للثورة.</li>
+                                <li>ترسيم أولوية السياسي على العسكري.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                    <span style="background: #9b59b6; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🟣</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 4: ما الفرق بين الموقف الجزائري والفرنسي خلال المفاوضات؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                    <tr style="background: #e0e0e0;">
+                                        <th style="padding: 10px; border: 1px solid #bdbdbd; text-align: right;">الموقف الجزائري</th>
+                                        <th style="padding: 10px; border: 1px solid #bdbdbd; text-align: right;">الموقف الفرنسي</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">وحدة التراب الوطني</td>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">محاولة التقسيم</td>
+                                    </tr>
+                                    <tr style="background: #f5f5f5;">
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">جبهة التحرير ممثل وحيد</td>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">رفض الاعتراف بالجبهة</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">وقف إطلاق النار</td>
+                                        <td style="padding: 10px; border: 1px solid #eeeeee;">السيادة الفرنسية</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start;">
+                    <span style="background: #e74c3c; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-left: 10px; flex-shrink: 0;">🔴</span>
+                    <div>
+                        <p style="font-weight: bold; color: #2c3e50; margin-top: 0;">سؤال 5: ما هي خصائص الثورة الجزائرية؟</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="font-weight: bold; color: #27ae60;">✅ الجواب النموذجي:</p>
+                            <ul style="padding-right: 20px;">
+                                <li>شارك فيها مختلف فئات الشعب.</li>
+                                <li>تنظيم دقيق رغم الظروف.</li>
+                                <li>ثورة سياسية وفكرية.</li>
+                                <li>دعم عالمي كبير.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `,
+    "notes": `
+    <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto;">
+        <div style="background: #f3e5f5; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #e1bee7;">
+            <h3 style="color: #6a1b9a; margin-top: 0; text-align: center; border-bottom: 2px solid #9c27b0; padding-bottom: 10px;">
+                📌 ملخص مركّز للمراجعة
+            </h3>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="background: #e1bee7;">
+                            <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">المحور</th>
+                            <th style="padding: 12px; border: 1px solid #ce93d8; text-align: right;">المضمون</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الأسباب الداخلية</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">فشل سياسي – قمع – تمييز – انقسامات حزبية</td>
+                        </tr>
+                        <tr style="background: #f3e5f5;">
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الأسباب الخارجية</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">تراجع فرنسا – حركات تحرر – دعم أممي</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">التحضير</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">لجنة 22 – مجموعة الستة – التقسيم إلى 5 مناطق</td>
+                        </tr>
+                        <tr style="background: #f3e5f5;">
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">اندلاع الثورة</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">1 نوفمبر 1954 – 30 عملية – تأسيس FLN</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">مراحل الثورة</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الانطلاقة – التنظيم – الإبادة – التفاوض</td>
+                        </tr>
+                        <tr style="background: #f3e5f5;">
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الاستقلال</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">وقف النار: 19 مارس 1962 – الاستقلال: 5 جويلية</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">التحديات بعد الاستقلال</td>
+                            <td style="padding: 12px; border: 1px solid #f3e5f5;">الفقر – الجهل – البناء – برنامج طرابلس</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #2e7d32;">
+                    <h4 style="color: #1b5e20; margin-top: 0;">📝 ملاحظات هامة:</h4>
+                    <ul style="padding-right: 20px;">
+                        <li>الثورة الجزائرية كانت نموذجاً للثورات الشعبية المنظمة.</li>
+                        <li>تميزت بمرحلية العمل ووضوح الأهداف.</li>
+                        <li>جمعت بين الكفاح المسلح والعمل السياسي والدبلوماسي.</li>
+                        <li>أثبتت أن الإرادة الشعبية قادرة على هزيمة الاستعمار.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+}
+];
+        
+        // Variables d'état
+        let currentCourseIndex = -1;
+        let currentTab = 'explanation';
+        
+        // Initialisation
+        function initInterface() {
+            const lessonsList = document.getElementById('lessonsList');
+            
+            // Remplir la liste des cours
+            coursesData.forEach((course, index) => {
+                const lessonCard = document.createElement('div');
+                lessonCard.className = 'lesson-card';
+                lessonCard.innerHTML = `
+                    <h3 class="lesson-title">${course.title}</h3>
+                    <p class="lesson-desc">${course.description}</p>
+                `;
+                lessonCard.addEventListener('click', () => loadCourse(index));
+                lessonsList.appendChild(lessonCard);
+            });
+            
+            // Écouteurs d'événements
+            document.getElementById('coursesBtn').addEventListener('click', showCoursesList);
+            document.getElementById('prevBtn').addEventListener('click', showPreviousCourse);
+            document.getElementById('nextBtn').addEventListener('click', showNextCourse);
+            document.getElementById('explanationTab').addEventListener('click', () => switchTab('explanation'));
+            document.getElementById('testTab').addEventListener('click', () => switchTab('test'));
+            document.getElementById('notesTab').addEventListener('click', () => switchTab('notes'));
+            document.getElementById('startBtn').addEventListener('click', startLearning);
+        }
+        
+        // Charger un cours
+        function loadCourse(index) {
+            if (index >= 0 && index < coursesData.length) {
+                currentCourseIndex = index;
+                const course = coursesData[index];
+                
+                document.getElementById('explanationContent').innerHTML = course.explanation;
+                document.getElementById('testContent').innerHTML = course.test;
+                document.getElementById('notesContent').innerHTML = course.notes;
+                
+                document.getElementById('explanationTitle').textContent = course.title;
+                document.getElementById('testTitle').textContent = course.title;
+                document.getElementById('notesTitle').textContent = course.title;
+                
+                showCoursesContent();
+                switchTab('explanation');
+            }
+        }
+        
+        // Afficher la liste des cours
+        function showCoursesList() {
+            document.getElementById('lessonsListSection').style.display = 'block';
+            document.getElementById('explanationSection').style.display = 'none';
+            document.getElementById('testSection').style.display = 'none';
+            document.getElementById('notesSection').style.display = 'none';
+            currentCourseIndex = -1;
+        }
+        
+        // Afficher le contenu d'un cours
+        function showCoursesContent() {
+            document.getElementById('lessonsListSection').style.display = 'none';
+            document.getElementById('explanationSection').style.display = 'none';
+            document.getElementById('testSection').style.display = 'none';
+            document.getElementById('notesSection').style.display = 'none';
+            
+            document.getElementById(`${currentTab}Section`).style.display = 'block';
+        }
+        
+        // Changer d'onglet
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            document.getElementById('explanationTab').classList.remove('active');
+            document.getElementById('testTab').classList.remove('active');
+            document.getElementById('notesTab').classList.remove('active');
+            
+            document.getElementById(`${tab}Tab`).classList.add('active');
+            
+            if (currentCourseIndex !== -1) {
+                showCoursesContent();
+            }
+        }
+        
+        // Cours précédent
+        function showPreviousCourse() {
+            if (currentCourseIndex > 0) {
+                loadCourse(currentCourseIndex - 1);
+            }
+        }
+        
+        // Cours suivant
+        function showNextCourse() {
+            if (currentCourseIndex < coursesData.length - 1) {
+                loadCourse(currentCourseIndex + 1);
+            }
+        }
+        
+        // Commencer l'apprentissage
+        function startLearning() {
+            document.getElementById('welcomeMessage').classList.add('hidden');
+            document.getElementById('mainInterface').classList.remove('hidden');
+            showCoursesList();
+        }
+        
+        // Initialiser l'interface
+        window.onload = initInterface;
+    </script>
+</body>
+</html>
